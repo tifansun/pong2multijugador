@@ -38,6 +38,9 @@ function setup() {
   ellipseMode(RADIUS)
   nombre = createInput("").attribute("placeholder","Ingresa tu nombre")
   nombre.position(width/2,height/2)
+  nuevo = createButton("Nuevo Juego")
+  nuevo.position(windowWidth-200,windowHeight-100)
+  nuevo.mousePressed(limpiar)
   enviar=createButton("Ingresar")
   enviar.position(width/2,height/2+100)
   h2=createElement("h2")
@@ -173,8 +176,8 @@ function move() {
     x:ball.x + ball.dx,
     y:ball.y + ball.dy
   })
-  if (ball.x > width) {
-    if (ball.y >= paddle2Y - paddle2Height && ball.y <= paddle2Y + paddle2Height) {
+  if (ball.x > paddle2Y - ball.r) {
+    if (ball.y >= paddle2y - paddle2Height/2 && ball.y <= paddle2y + paddle2Height/2) {
     firebase.database().ref("pelota").update({
       dx:-ball.dx - 0.5
     })
@@ -188,7 +191,7 @@ function move() {
       reset();
     }
   }
-  if (ball.x < 0) {
+  if (ball.x < paddle1X + ball.r) {
     if (ball.y >= paddle1Y - paddle1Height && ball.y <= paddle1Y + paddle1Height) {
       firebase.database().ref("pelota").update({
         dx:-ball.dx + 0.5
@@ -215,7 +218,7 @@ function move() {
   if (pcscore >= 4 || playerscore >=4) {
     fill("#FFA500");
     stroke(0)
-    rect(width*0.5, height*0.5, width, height);
+    rect(width*0.5, height, width, height);
     fill("white");
     stroke("white");
     textSize(25)
@@ -295,4 +298,5 @@ function limpiar(){
     jugadores:null
   })
   localStorage.clear()
+  window.location.reload();
 }
