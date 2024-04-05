@@ -39,6 +39,7 @@ function setup() {
   ellipseMode(RADIUS)
   nombre = createInput("").attribute("placeholder","Ingresa tu nombre")
   nombre.position(width/2,height/2)
+  nombre.center("horizontal")
   nuevo = createButton("Nuevo Juego")
   nuevo.position(windowWidth-200,windowHeight-100)
   nuevo.mousePressed(limpiar)
