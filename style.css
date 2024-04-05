@@ -1,0 +1,17 @@
+body
+{
+background-image: url(images_2.jpg);
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+background-color: rgb(4, 4, 56);
+text-align: center;
+}
+canvas{
+    border: whitesmoke 10px dashed;
+}
+h1{
+    color:aquamarine ;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
