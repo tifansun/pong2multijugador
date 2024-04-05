@@ -33,6 +33,7 @@ function setup() {
   coordenadas = ml5.poseNet(video, listo)
   //coordenadas.on("pose", respuesta)
   fondo=createImg("background1.jpg")
+  fondo.size(windowWidth,windowHeight)
   fondo.position(0,0)
   rectMode(CENTER)
   ellipseMode(RADIUS)
@@ -43,8 +44,9 @@ function setup() {
   nuevo.mousePressed(limpiar)
   enviar=createButton("Ingresar")
   enviar.position(width/2,height/2+100)
+  enviar.center("horizontal")
   h2=createElement("h2")
-  h2.position(width/2,height/2)
+  h2.center()
   enviar.mousePressed(Ingresar)
   firebase.database().ref("estatus").on("value",(datos)=>{
     estatus=datos.val()
@@ -218,7 +220,7 @@ function move() {
   if (pcscore >= 4 || playerscore >=4) {
     fill("#FFA500");
     stroke(0)
-    rect(width*0.5, height, width, height);
+    rect(width*0.5, height*0.5, width, height);
     fill("white");
     stroke("white");
     textSize(25)
@@ -251,6 +253,12 @@ function Ingresar(){
         x:10,
         y:350,
         puntos:0
+      })
+      firebase.database().ref("jugadores").on("value",(datos)=>{
+        paddle1Y = datos.val()["jugador1"].y
+        paddle2y = datos.val()["jugador2"].y
+        playerscore = datos.val()["jugador1"].puntos
+        pcscore = datos.val()["jugador2"].puntos
       })
     }
     if (datos.numChildren()===1){
